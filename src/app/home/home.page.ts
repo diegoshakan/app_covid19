@@ -8,10 +8,8 @@ import { CountriesService } from '../services/countries.service';
 })
 export class HomePage implements OnInit {
   countries: any[] = [];
-  countryName: string;
 
   constructor(private countriesService: CountriesService) {
-    this.countryName = '';
   }
 
   ngOnInit() {
@@ -30,8 +28,15 @@ export class HomePage implements OnInit {
     );
   }
 
-  public search(event) {
-    this.countryName = event.target.value;
-    console.log(this.countryName);
+  public search(event: any) {
+    this.getListCountries()
+    const val = event.target.value;
+    if (val && val.trim() !== '') {
+      this.countries = this.countries.filter((item) => {
+        return (item.country.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+    } else {
+      this.getListCountries()
+    }
   }
 }
