@@ -1,11 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Blank </ion-title>
+    <ion-title> Covid 19 </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-searchbar animated="true" 
+  color="tertiary"
+  placeholder="País"
+  (ionInput)="search($event)"></ion-searchbar>
   <ion-list>
     <ion-item *ngFor="let country of countries">
       <img src="{{ country.countryInfo.flag }}" width="25" height="15">  &nbsp;{{ country.country }} 

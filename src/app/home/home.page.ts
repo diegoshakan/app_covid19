@@ -8,7 +8,11 @@ import { CountriesService } from '../services/countries.service';
 })
 export class HomePage implements OnInit {
   countries: any[] = [];
-  constructor(private countriesService: CountriesService) {}
+  countryName: string;
+
+  constructor(private countriesService: CountriesService) {
+    this.countryName = '';
+  }
 
   ngOnInit() {
     this.getListCountries();
@@ -24,5 +28,10 @@ export class HomePage implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  public search(event) {
+    this.countryName = event.target.value;
+    console.log(this.countryName);
   }
 }
