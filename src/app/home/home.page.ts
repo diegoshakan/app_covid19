@@ -8,7 +8,9 @@ import { CountriesService } from '../services/countries.service';
 })
 export class HomePage implements OnInit {
   countries: any[] = [];
-  constructor(private countriesService: CountriesService) {}
+
+  constructor(private countriesService: CountriesService) {
+  }
 
   ngOnInit() {
     this.getListCountries();
@@ -24,5 +26,17 @@ export class HomePage implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  public search(event: any) {
+    this.countries
+    const val = event.target.value;
+    if (val && val.trim() !== '') {
+      this.countries = this.countries.filter((item) => {
+        return (item.country.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+    } else {
+      this.getListCountries()
+    }
   }
 }

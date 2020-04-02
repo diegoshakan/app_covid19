@@ -12,4 +12,8 @@ export class CountriesService {
   public getListCountries() {
     return this.http.get(this.url);
   }
+
+  public getCountryDetail(id) {
+    return this.http.get(this.url + '/' + id)
+  }
 }
