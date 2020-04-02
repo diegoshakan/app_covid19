@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CountryDetailPage implements OnInit {
   countryDetail: any;
-  countryDetailName: any;
 
   constructor(private countriesService: CountriesService, private route: ActivatedRoute) { }
 
@@ -17,7 +16,6 @@ export class CountryDetailPage implements OnInit {
     const country = this.route.snapshot.paramMap.get('country');
     this.countriesService.getCountryDetail(country).subscribe(
       data => {
-        console.log('data:', data);
         this.countryDetail = [data];
       },
       error => {
@@ -26,15 +24,13 @@ export class CountryDetailPage implements OnInit {
     );
   }
 
-  formatDate(dateUpdate) {
-    let date: any = new Date(dateUpdate);
-    let day = date.getDate();
-    let month = date.getMonth();
-    let year = date.getFullYear();
-    let hour = date.toLocaleTimeString();
-    let dateFormat = `${day}/${month + 1}/${year} - ${hour}`;
+  public formatDate(dateUpdate) {
+    const date: any = new Date(dateUpdate);
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const hour = date.toLocaleTimeString();
+    const dateFormat = `${day}/${month + 1}/${year} - ${hour}`;
     return dateFormat;
   }
-
-
 }

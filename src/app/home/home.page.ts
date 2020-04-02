@@ -23,7 +23,6 @@ export class HomePage implements OnInit {
       data => {
         this.countries = data as [];
         this.loadCountries = data as [];
-        console.log(data);
       },
       error => {
         console.log(error);
