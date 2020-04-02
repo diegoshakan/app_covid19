@@ -1,0 +1,46 @@
+<ion-header *ngFor="let c of countryDetail">
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="countries" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title> {{c.country}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let c of countryDetail">
+    <ion-card-header>
+      <img src="{{ c?.countryInfo.flag }}">
+      <ion-card-title>
+        {{ c.country }}
+      </ion-card-title>
+      <ion-card-subtitle>
+        Casos totais: {{ c.cases }}
+      </ion-card-subtitle>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-list>
+        <ion-text color="dark">
+          <b>Total de Mortes: {{ c.deaths }} </b>
+        </ion-text> <br />
+        <ion-text color="warning">
+          <b>Casos de Hoje: {{ c.todayCases }} </b>
+        </ion-text> <br />
+        <ion-text color="dark">
+          <b>Mortes Hoje: {{ c.todayDeaths }} </b>
+        </ion-text> <br />
+        <ion-text color="success">
+          <b>Recuperados: {{ c.recovered }} </b>
+        </ion-text> <br />
+        <ion-text color="warning">
+          <b>Casos Ativos: {{ c.active }} </b>
+        </ion-text> <br />
+        <ion-text color="danger">
+          <b>Casos Críticos: {{ c.critical }} </b>
+        </ion-text> <br />
+      </ion-list>
+      <ion-footer> <ion-label> Atualizado: {{ formatDate(c.updated) }} </ion-label></ion-footer>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

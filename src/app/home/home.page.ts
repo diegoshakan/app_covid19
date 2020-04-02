@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
   }
 
   public search(event: any) {
-    this.getListCountries()
+    this.countries
     const val = event.target.value;
     if (val && val.trim() !== '') {
       this.countries = this.countries.filter((item) => {
