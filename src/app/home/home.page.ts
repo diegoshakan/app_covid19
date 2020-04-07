@@ -1,51 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { CountriesService } from '../services/countries.service';
+import { Component, OnInit } from "@angular/core";
+import { CountriesService } from "../services/countries.service";
+import { Observable, of } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: "app-home",
+  templateUrl: "home.page.html",
+  styleUrls: ["home.page.scss"],
 })
 export class HomePage implements OnInit {
-  countries: any[] = [];
-  loadCountries: any[] = [];
+  countries$: Observable<any[]> = of([]);
+  loadCountries: Observable<any[]> = of([]);
   val: any;
 
-  constructor(private countriesService: CountriesService) {
-  }
+  constructor(private countriesService: CountriesService) {}
 
   ngOnInit() {
     this.getListCountries();
   }
 
   public getListCountries() {
-    this.countriesService.getListCountries().subscribe(
-      data => {
-        this.countries = data as [];
-        this.loadCountries = data as [];
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.countries$ = this.countriesService.getListCountries() as Observable<
+      any[]
+    >;
+    this.loadCountries = this.countriesService.getListCountries() as Observable<
+      any[]
+    >;
   }
 
   initializeItems(): void {
-    this.countries = this.loadCountries;
+    this.countries$ = this.loadCountries;
   }
 
   public search(event: any) {
     this.initializeItems();
     this.val = event.target.value;
-    if (this.val && this.val.trim() !== '') {
-      this.countries = this.countries.filter((item) => {
-        return (item.country.toLowerCase().indexOf(this.val.toLowerCase()) > -1);
-      });
+    if (this.val && this.val.trim() !== "") {
+      this.countries$ = this.countries$.pipe(
+        map((contries) =>
+          contries.filter(
+            ({ country }) =>
+              country.toLowerCase().indexOf(this.val.toLowerCase()) > -1
+          )
+        )
+      );
     }
   }
 
   cleanSearchBar() {
-    this.val = '';
+    this.val = "";
     this.initializeItems();
     return this.val;
   }
