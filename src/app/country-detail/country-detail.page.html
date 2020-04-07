@@ -10,7 +10,7 @@
 <ion-content>
   <ion-card *ngIf="countryDetail$ | async as c">
     <ion-card-header>
-      <img src="{{ c.countryInfo.flag }}">
+      <img src="{{ c.countryInfo.flag }}" width="100%">
       <ion-card-title>
         {{ c.country }}
       </ion-card-title>
