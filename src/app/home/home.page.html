@@ -1,20 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="secondary">
-    <ion-title> Covid 19 </ion-title>
+    <ion-title> COVID 19 </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-searchbar animated="true" 
-  color="secondary"
-  placeholder="País" mode="ios"
-  [(ngModel)]="val"
-  (ionInput)="search($event)"></ion-searchbar>
-  <ion-list>
-    <ion-item detail *ngFor="let country of countries" routerLink="/countries/{{country.country}}" (click)="cleanSearchBar()">
-      <ion-avatar slot="start"> <img src="{{ country.countryInfo.flag }}"> </ion-avatar>
-       {{ country.country }} 
+  <ion-searchbar
+    animated="true"
+    color="secondary"
+    placeholder="País"
+    debounce="500"
+    mode="ios"
+    [(ngModel)]="val"
+    (ionChange)="search($event)"
+  ></ion-searchbar>
+  <ion-list *ngIf="countries$ | async as countries; else loading">
+    <ion-item
+      detail
+      *ngFor="let country of countries"
+      routerLink="/countries/{{country.country}}"
+      (click)="cleanSearchBar()"
+    >
+      <ion-avatar slot="start">
+        <img src="{{ country.countryInfo.flag }}" />
+      </ion-avatar>
+      {{ country.country }}
     </ion-item>
   </ion-list>
 
+  <ng-template #loading>
+    <div class="ion-text-center">
+      <ion-spinner name="dots"></ion-spinner>
+    </div>
+  </ng-template>
 </ion-content>

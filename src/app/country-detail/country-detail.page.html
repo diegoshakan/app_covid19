@@ -1,4 +1,4 @@
-<ion-header *ngFor="let c of countryDetail">
+<ion-header *ngIf="countryDetail$ | async as c">
   <ion-toolbar color="secondary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="countries" text=""></ion-back-button>
@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let c of countryDetail">
+  <ion-card *ngIf="countryDetail$ | async as c">
     <ion-card-header>
       <img src="{{ c.countryInfo.flag }}">
       <ion-card-title>
@@ -40,7 +40,7 @@
           <b>Casos Críticos: {{ c.critical }} </b>
         </ion-text> <br />
       </ion-list>
-      <ion-footer> <ion-label> <font size="1"> Atualizado: {{ formatDate(c.updated) }} - Fonte: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen" target="_blank">WHO</a> </font></ion-label></ion-footer>
+      <ion-footer> <ion-label> <font size="1"> Atualizado: {{ c.updated | date: 'short' }} - Fonte: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen" target="_blank">WHO</a> </font></ion-label></ion-footer>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -1,36 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { CountriesService } from '../services/countries.service';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { CountriesService } from "../services/countries.service";
+import { ActivatedRoute } from "@angular/router";
+import { Observable } from "rxjs";
+import { switchMap } from "rxjs/operators";
 
 @Component({
-  selector: 'app-country-detail',
-  templateUrl: './country-detail.page.html',
-  styleUrls: ['./country-detail.page.scss'],
+  selector: "app-country-detail",
+  templateUrl: "./country-detail.page.html",
+  styleUrls: ["./country-detail.page.scss"],
 })
 export class CountryDetailPage implements OnInit {
-  countryDetail: any;
+  countryDetail$: Observable<any>;
 
-  constructor(private countriesService: CountriesService, private route: ActivatedRoute) { }
+  constructor(
+    private countriesService: CountriesService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    const country = this.route.snapshot.paramMap.get('country');
-    this.countriesService.getCountryDetail(country).subscribe(
-      data => {
-        this.countryDetail = [data];
-      },
-      error => {
-        console.log(error);
-      }
+    this.countryDetail$ = this.route.params.pipe(
+      switchMap(({ country }) =>
+        this.countriesService.getCountryDetail(country)
+      )
     );
-  }
-
-  public formatDate(dateUpdate) {
-    const date: any = new Date(dateUpdate);
-    const day = date.getDate();
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const hour = date.toLocaleTimeString();
-    const dateFormat = `${day}/${month + 1}/${year} - ${hour}`;
-    return dateFormat;
   }
 }
