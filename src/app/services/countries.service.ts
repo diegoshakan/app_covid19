@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CountriesService {
-  private url = 'https://corona.lmao.ninja/countries';
+  private url = 'https://corona.lmao.ninja/v2/countries';
   constructor(private http: HttpClient) { }
 
   public getListCountries() {

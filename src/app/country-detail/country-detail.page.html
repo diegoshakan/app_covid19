@@ -10,7 +10,7 @@
 <ion-content>
   <ion-card *ngIf="countryDetail$ | async as c">
     <ion-card-header>
-      <img src="{{ c.countryInfo.flag }}" width="100%">
+      <img src="{{ c.countryInfo.flag }}" width="50%">
       <ion-card-title>
         {{ c.country }}
       </ion-card-title>
@@ -22,25 +22,31 @@
     <ion-card-content>
       <ion-list>
         <ion-text color="dark">
+          <ion-icon name="add-outline"></ion-icon>
           <b>Total de Mortes: {{ c.deaths }} </b>
         </ion-text> <br />
-        <ion-text color="warning">
+        <ion-text color="dark">
+          <ion-icon name="alert-circle-outline"></ion-icon>
           <b>Casos de Hoje: {{ c.todayCases }} </b>
         </ion-text> <br />
         <ion-text color="dark">
+          <ion-icon name="arrow-down-outline"></ion-icon>
           <b>Mortes Hoje: {{ c.todayDeaths }} </b>
         </ion-text> <br />
-        <ion-text color="success">
+        <ion-text color="dark">
+          <ion-icon name="bandage-outline"></ion-icon>
           <b>Recuperados: {{ c.recovered }} </b>
         </ion-text> <br />
-        <ion-text color="warning">
+        <ion-text color="dark">
+          <ion-icon name="thermometer-outline"></ion-icon>
           <b>Casos Ativos: {{ c.active }} </b>
         </ion-text> <br />
-        <ion-text color="danger">
+        <ion-text color="dark">
+          <ion-icon name="fitness-outline"></ion-icon>
           <b>Casos Críticos: {{ c.critical }} </b>
         </ion-text> <br />
       </ion-list>
-      <ion-footer> <ion-label> <font size="1"> Atualizado: {{ c.updated | date: 'short' }} - Fonte: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen" target="_blank">WHO</a> </font></ion-label></ion-footer>
+      <ion-footer> <ion-label> <font size="1"> Atualizado: {{ c.updated | date: 'dd/MM/yyyy hh:mm a' }} - Fonte: <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/events-as-they-happen" target="_blank">WHO</a> </font></ion-label></ion-footer>
     </ion-card-content>
   </ion-card>
 </ion-content>
